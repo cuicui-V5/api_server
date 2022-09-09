@@ -6,4 +6,6 @@ router.post("/register", userHandler.register);
 // 登录
 router.post("/login", userHandler.login);
 
+router.post("/query", userHandler.query);
+
 module.exports = router;
