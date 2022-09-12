@@ -9,9 +9,10 @@ const joi = require("joi");
 
 const config = require("./config");
 
-const expressJWT = require("express-jwt");
+const { expressjwt } = require("express-jwt");
 //导入路由
 const userRouter = require("./router/user");
+const userInfoRouter = require("./router/userinfo");
 //  配置中间件
 app.use((req, res, next) => {
     res.cc = (err, status = 1) => {
@@ -22,7 +23,11 @@ app.use((req, res, next) => {
     };
     next();
 });
-app.use(expressJWT({ secret: config.jwtSecretKey }).unless({ path: [/^\/api\//] }));
+app.use(
+    expressjwt({ secret: config.jwtSecretKey, algorithms: ["HS256"] }).unless({
+        path: [/^\/api\//],
+    })
+);
 
 app.use(cors());
 app.use(express.urlencoded());
@@ -30,6 +35,7 @@ app.use(express.json());
 
 //使用路由
 app.use("/api", userRouter);
+app.use("/my", userInfoRouter);
 
 //错误中间件
 app.use((err, req, res, next) => {

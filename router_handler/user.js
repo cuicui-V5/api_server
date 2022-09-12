@@ -1,4 +1,4 @@
-const db = require("../router/db");
+const db = require("../db");
 const bcrypt = require("bcryptjs");
 // 用这个包来生成 Token 字符串
 const jwt = require("jsonwebtoken");
